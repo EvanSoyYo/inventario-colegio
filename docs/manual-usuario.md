@@ -60,7 +60,7 @@ El panel muestra el total de equipos, equipos disponibles, equipos prestados, eq
 - **Código duplicado:** registre otro código.
 - **Equipo no disponible:** revise su estado y el historial de préstamos.
 - **La página no carga el estilo:** confirme que existen `assets/css/estilos.css` y `assets/js/app.js` bajo la carpeta del sitio.
-- **Módulo C++/WebAssembly pendiente:** el módulo compilado no está disponible en esta entrega local; la interfaz sigue funcionando con las validaciones del servidor.
+- **Módulo C++/WebAssembly:** aporta validación adicional de códigos y cálculo de días de atraso cuando los archivos generados están desplegados. Si no carga, la interfaz mantiene las validaciones del servidor.
 
 ## Cierre de sesión
 

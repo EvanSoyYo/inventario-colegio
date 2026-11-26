@@ -16,9 +16,9 @@ Fecha de registro: 25 de noviembre de 2026. Las pruebas locales se ejecutaron co
 | P10 | CRUD de equipo con cuenta iniciada | Alta, búsqueda, edición, estado y desactivación correctos | El estudiante confirma que completó las pruebas locales | Guardar las capturas reales del flujo |
 | P11 | Préstamo y devolución con sesión | Reglas de fechas, disponibilidad e historial correctos | El estudiante confirma que completó las pruebas locales | Guardar las capturas reales del flujo |
 | P12 | Exportar CSV con sesión | Archivo CSV válido, UTF-8 y estado calculado | Aprobado en XAMPP | HTTP 200, `text/csv; charset=utf-8` |
-| P13 | C++ a WebAssembly | Compilación y funciones exportadas | Bloqueado: Control de aplicaciones de Windows impidió ejecutar `wasm-ld.exe` | Mensaje del sistema durante compilación |
+| P13 | C++ a WebAssembly | Compilación y funciones exportadas | Aprobado: compilación completada; funciones revisadas en Node.js | `poo=1`, `archivos=2`, `codigoValido=1`, `codigoInvalido=0`, `atraso=3` |
 | P14 | Publicación pública | El sitio carga y la aplicación funciona en Internet | El estudiante confirma que el sitio funciona | https://chus-proyecto-2026.free.je/ |
-| P15 | C++ a WebAssembly en el sitio público | Módulo compilado y carga confirmada | Pendiente: compilación bloqueada por Control de aplicaciones de Windows | Requiere entorno aprobado |
+| P15 | C++ a WebAssembly en el sitio público | Módulo compilado y carga confirmada | Pendiente: subir los dos artefactos al hosting y confirmar el indicador | `assets/wasm/inventario.js`, `assets/wasm/inventario.wasm` |
 | P16 | Video | Recorrido de 90–120 segundos | Pendiente por decisión del estudiante; fuera de la ayuda solicitada | Guion en `docs/guion-video.md` |
 
 ## Registro funcional anterior

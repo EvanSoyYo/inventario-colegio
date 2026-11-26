@@ -8,13 +8,13 @@ Aplicación web para administrar el inventario, los préstamos y las devolucione
 - **Base de datos:** `inventario_colegio`, con tablas `equipos`, `prestamos` y `usuarios`; XAMPP aporta MariaDB con sintaxis compatible con MySQL.
 - **API:** equipos, préstamos, devoluciones, resumen, exportación CSV e inicio de sesión.
 - **Acceso:** el primer uso solicita crear una cuenta administrativa. No se incluye una contraseña predeterminada.
-- **C++/WebAssembly:** fuente y script de compilación incluidos; el módulo `.wasm` no pudo generarse porque el Control de aplicaciones de Windows bloqueó `wasm-ld.exe`. La interfaz informa esta condición y conserva el resto de las funciones.
+- **C++/WebAssembly:** el módulo está compilado en `assets/wasm/`; las cuatro funciones exportadas pasaron una comprobación local con resultados esperados. Para activar la función en la URL pública falta subir `inventario.js` e `inventario.wasm`.
 - **Documentación:** manual de usuario, manual técnico, identidad visual, plan de pruebas, guion de video, lista de cierre y presentación de ocho diapositivas incluidos en `docs/`.
 - **Publicación en Internet:** el estudiante confirma que el sitio funciona en [chus-proyecto-2026.free.je](https://chus-proyecto-2026.free.je/). Para reproducir el despliegue se incluyen `database/schema_hosting.sql` y `docs/publicacion-hosting.md`.
 - **Repositorio GitHub:** publicado en `https://github.com/EvanSoyYo/inventario-colegio`.
-- **C++/WebAssembly:** fuente y script incluidos; falta generar y desplegar el módulo porque Windows bloqueó `wasm-ld.exe`.
+- **C++/WebAssembly:** compilado y comprobado localmente; falta desplegar los dos archivos generados en el hosting.
 - **Evidencia final:** guardar capturas de las pruebas funcionales. La grabación del video queda a cargo del estudiante.
-- **Lista de cierre:** consulte `docs/cierre-entrega.md` para completar WebAssembly y reunir la evidencia final.
+- **Lista de cierre:** consulte `docs/cierre-entrega.md` para desplegar WebAssembly y reunir la evidencia final.
 
 ## Requisitos locales
 
@@ -55,7 +55,7 @@ Las operaciones protegidas usan sesión de PHP y token CSRF. El servidor valida 
 
 ## Compilar el módulo WebAssembly
 
-El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten, Git y Python. En esta computadora el compilador llegó a `wasm-ld.exe`, pero Windows lo bloqueó por Control de aplicaciones; por eso no se afirma que la integración C++/WebAssembly esté terminada. En un entorno aprobado, defina `EMSDK_DIR` con la ruta del SDK y ejecute `cpp\compilar_wasm.bat` desde la carpeta del proyecto. No cambie la configuración de seguridad del equipo para compilar; consulte con el profesor o el administrador del dispositivo.
+El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten. Defina `EMSDK_DIR` con la carpeta del SDK y ejecute el script desde la carpeta del proyecto. Los archivos generados son `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm`. Se comprobó que `demostrar_arreglo_poo` devuelve 1, `prueba_archivos_virtuales` devuelve 2, la validación acepta `TEC-001` y rechaza `TEC 001`, y el cálculo devuelve 3 días para una diferencia de 3. Para activar el módulo público, suba ambos archivos al mismo directorio `assets/wasm/` del sitio y recargue la página.
 
 ## Pruebas registradas
 

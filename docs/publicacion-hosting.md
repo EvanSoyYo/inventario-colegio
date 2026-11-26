@@ -42,5 +42,5 @@ El archivo para hosting no ejecuta `CREATE DATABASE` ni `USE`, porque el proveed
 
 ## WebAssembly
 
-El paquete web funciona aunque `assets/wasm/inventario.js` y `.wasm` no existan: muestra el estado pendiente y usa validación del servidor. Compila C++ solo en un equipo donde el administrador haya permitido Emscripten. Después sube los dos archivos generados a `assets/wasm/` y confirma que la interfaz indique que el módulo está activo.
+Los archivos `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm` ya están compilados y comprobados en el proyecto. Sube ambos archivos a `htdocs/assets/wasm/` con el administrador de archivos del hosting y confirma que la interfaz indique que el módulo está activo.
 
