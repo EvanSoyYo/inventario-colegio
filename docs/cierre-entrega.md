@@ -26,7 +26,7 @@ La prueba del préstamo y devolución que ya se registra en `docs/plan-pruebas.m
 
 - **Repositorio público:** el repositorio del proyecto ya está en [GitHub](https://github.com/EvanSoyYo/inventario-colegio). Antes de compartirlo, confirma que no tenga archivos privados ni credenciales.
 - **Alojamiento público:** publicado en [chus-proyecto-2026.free.je](https://chus-proyecto-2026.free.je/); el estudiante confirma que funciona.
-- **WebAssembly:** compilado y probado localmente. Para publicarlo, sube `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm` desde el proyecto a la misma ruta dentro de `htdocs/assets/wasm/` en InfinityFree. Luego recarga el sitio y confirma que indique que el módulo está activo.
+- **WebAssembly:** compilado y probado localmente; el estudiante confirma que los archivos están en el hosting y el sitio indica que el módulo está activo.
 - **Video:** queda pendiente por decisión del estudiante y fuera del apoyo solicitado. El guion está en `docs/guion-video.md`.
 - **Portada:** el proyecto se preparó sin nombre personal, según lo solicitado.
 

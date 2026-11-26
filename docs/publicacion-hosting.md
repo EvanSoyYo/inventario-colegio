@@ -42,5 +42,5 @@ El archivo para hosting no ejecuta `CREATE DATABASE` ni `USE`, porque el proveed
 
 ## WebAssembly
 
-Los archivos `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm` ya están compilados y comprobados en el proyecto. Sube ambos archivos a `htdocs/assets/wasm/` con el administrador de archivos del hosting y confirma que la interfaz indique que el módulo está activo.
+Los archivos `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm` están compilados y comprobados en el proyecto. El estudiante confirma que ya se subieron a `htdocs/assets/wasm/` y que la interfaz indica que el módulo está activo.
 

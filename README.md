@@ -8,11 +8,11 @@ Aplicación web para administrar el inventario, los préstamos y las devolucione
 - **Base de datos:** `inventario_colegio`, con tablas `equipos`, `prestamos` y `usuarios`; XAMPP aporta MariaDB con sintaxis compatible con MySQL.
 - **API:** equipos, préstamos, devoluciones, resumen, exportación CSV e inicio de sesión.
 - **Acceso:** el primer uso solicita crear una cuenta administrativa. No se incluye una contraseña predeterminada.
-- **C++/WebAssembly:** el módulo está compilado en `assets/wasm/`; las cuatro funciones exportadas pasaron una comprobación local con resultados esperados. Para activar la función en la URL pública falta subir `inventario.js` e `inventario.wasm`.
+- **C++/WebAssembly:** módulo compilado, probado localmente y activo en el sitio público, según confirma el estudiante.
 - **Documentación:** manual de usuario, manual técnico, identidad visual, plan de pruebas, guion de video, lista de cierre y presentación de ocho diapositivas incluidos en `docs/`.
 - **Publicación en Internet:** el estudiante confirma que el sitio funciona en [chus-proyecto-2026.free.je](https://chus-proyecto-2026.free.je/). Para reproducir el despliegue se incluyen `database/schema_hosting.sql` y `docs/publicacion-hosting.md`.
 - **Repositorio GitHub:** publicado en `https://github.com/EvanSoyYo/inventario-colegio`.
-- **C++/WebAssembly:** compilado y comprobado localmente; falta desplegar los dos archivos generados en el hosting.
+- **C++/WebAssembly:** compilado, comprobado y desplegado; el estudiante confirma que el sitio muestra el módulo activo.
 - **Evidencia final:** guardar capturas de las pruebas funcionales. La grabación del video queda a cargo del estudiante.
 - **Lista de cierre:** consulte `docs/cierre-entrega.md` para desplegar WebAssembly y reunir la evidencia final.
 
@@ -55,7 +55,7 @@ Las operaciones protegidas usan sesión de PHP y token CSRF. El servidor valida 
 
 ## Compilar el módulo WebAssembly
 
-El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten. Defina `EMSDK_DIR` con la carpeta del SDK y ejecute el script desde la carpeta del proyecto. Los archivos generados son `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm`. Se comprobó que `demostrar_arreglo_poo` devuelve 1, `prueba_archivos_virtuales` devuelve 2, la validación acepta `TEC-001` y rechaza `TEC 001`, y el cálculo devuelve 3 días para una diferencia de 3. Para activar el módulo público, suba ambos archivos al mismo directorio `assets/wasm/` del sitio y recargue la página.
+El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten. Defina `EMSDK_DIR` con la carpeta del SDK y ejecute el script desde la carpeta del proyecto. Los archivos generados son `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm`. Se comprobó que `demostrar_arreglo_poo` devuelve 1, `prueba_archivos_virtuales` devuelve 2, la validación acepta `TEC-001` y rechaza `TEC 001`, y el cálculo devuelve 3 días para una diferencia de 3. El estudiante confirma que ambos archivos fueron desplegados y que el módulo está activo en el sitio público.
 
 ## Pruebas registradas
 

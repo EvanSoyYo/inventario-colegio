@@ -6,7 +6,7 @@
 - **Servidor:** PHP con endpoints JSON y consultas preparadas mediante PDO.
 - **Datos:** MariaDB incluida en XAMPP, compatible con la sintaxis usada para MySQL.
 - **Acceso:** sesión PHP, contraseña con `password_hash`/`password_verify` y token CSRF para cambios.
-- **C++/WebAssembly:** el módulo fuente calcula días de atraso y valida códigos; el script y los binarios generados se incluyen. Las cuatro funciones exportadas se comprobaron localmente. El servidor público requiere los archivos `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm` para mostrar el módulo activo.
+- **C++/WebAssembly:** el módulo fuente calcula días de atraso y valida códigos; el script y los binarios generados se incluyen. Las cuatro funciones exportadas se comprobaron localmente y el estudiante confirma que el módulo aparece activo en el servidor público.
 
 ## Modelo de datos
 
