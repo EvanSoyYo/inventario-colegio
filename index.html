@@ -8,18 +8,21 @@
   <link rel="stylesheet" href="assets/css/estilos.css">
   <script src="assets/js/app.js" defer></script>
 </head>
-<body>
+<body class="sin-sesion">
   <a class="enlace-saltar" href="#contenido-principal">Saltar al contenido</a>
 
   <header class="encabezado-sitio" id="encabezado-sitio">
     <div class="contenedor encabezado-interno">
-      <h1 class="titulo-sitio" id="titulo-sitio">Inventario tecnológico</h1>
+      <a class="marca-sitio" href="#inicio" aria-label="Inventario tecnológico, inicio">
+        <span class="marca-simbolo" aria-hidden="true">IT</span>
+        <span class="marca-texto">INVENTARIO<br><b>TECNOLÓGICO</b></span>
+      </a>
       <nav class="navegacion" id="nav-principal" aria-label="Navegación principal">
         <ul class="navegacion-lista">
-          <li><a id="enlace-panel" href="#seccion-panel">Panel</a></li>
-          <li><a id="enlace-equipos" href="#seccion-equipos">Equipos</a></li>
-          <li><a id="enlace-prestamos" href="#seccion-prestamos">Nuevo préstamo</a></li>
-          <li><a id="enlace-historial" href="#seccion-historial">Historial</a></li>
+          <li><a id="enlace-panel" href="#seccion-panel"><span>01</span> Panel</a></li>
+          <li><a id="enlace-equipos" href="#seccion-equipos"><span>02</span> Equipos</a></li>
+          <li><a id="enlace-prestamos" href="#seccion-prestamos"><span>03</span> Préstamos</a></li>
+          <li><a id="enlace-historial" href="#seccion-historial"><span>04</span> Historial</a></li>
           <li><span id="usuario-actual" hidden></span></li>
           <li><button type="button" class="boton boton-secundario" id="boton-cerrar-sesion" hidden>Cerrar sesión</button></li>
         </ul>
@@ -27,8 +30,24 @@
     </div>
   </header>
 
+  <section class="hero-proyecto contenedor" id="inicio" aria-labelledby="titulo-hero">
+    <div class="hero-principal">
+      <p class="sobrelinea"><span></span> GESTIÓN DE RECURSOS · SISTEMA LOCAL</p>
+      <h2 id="titulo-hero">EQUIPOS<br><span>EN ORDEN.</span></h2>
+      <p class="hero-descripcion">Inventario, préstamos y devoluciones en un solo espacio de trabajo.</p>
+    </div>
+    <div class="hero-lateral" aria-label="Módulos del sistema">
+      <span class="hero-indice">01 <i>— SISTEMA</i></span>
+      <div class="hero-ruta"><span>01</span><b>INVENTARIO</b></div>
+      <div class="hero-ruta"><span>02</span><b>PRÉSTAMOS</b></div>
+      <div class="hero-ruta"><span>03</span><b>DEVOLUCIONES</b></div>
+      <span class="hero-tecnologias">PHP <i>/</i> SQL <i>/</i> JS</span>
+    </div>
+  </section>
+
   <section class="acceso contenedor" id="seccion-acceso" aria-labelledby="titulo-acceso">
     <div class="tarjeta-acceso">
+      <p class="sobrelinea"><span></span> ACCESO · 01</p>
       <h2 id="titulo-acceso">Acceso administrativo</h2>
       <p class="ayuda" id="ayuda-acceso">Cargando estado de acceso…</p>
       <p class="mensaje-acceso" id="mensaje-acceso" role="alert" hidden></p>

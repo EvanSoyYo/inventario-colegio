@@ -62,6 +62,7 @@ function mostrarMensajeAcceso(texto = '') {
 }
 
 function mostrarAcceso(tipo, mensaje = '') {
+  document.body.classList.add('sin-sesion');
   porId('seccion-acceso').hidden = false;
   porId('contenido-principal').classList.add('oculto');
   porId('formulario-login').hidden = tipo !== 'login';
@@ -75,6 +76,7 @@ function mostrarAcceso(tipo, mensaje = '') {
 }
 
 function mostrarAplicacion(usuario) {
+  document.body.classList.remove('sin-sesion');
   estado.usuario = usuario;
   porId('seccion-acceso').hidden = true;
   porId('contenido-principal').classList.remove('oculto');
