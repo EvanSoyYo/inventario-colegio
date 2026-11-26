@@ -53,7 +53,7 @@ Las operaciones protegidas usan sesión de PHP y token CSRF. El servidor valida 
 
 ## Compilar el módulo WebAssembly
 
-El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten, Git y Python. En esta computadora el compilador llegó a `wasm-ld.exe`, pero Windows lo bloqueó por Control de aplicaciones; por eso no se afirma que la integración C++/WebAssembly esté terminada. No cambie la configuración de seguridad del equipo para compilar. Consulte con el profesor o el administrador del dispositivo sobre un entorno aprobado.
+El código está en `cpp/inventario.cpp` y el script en `cpp/compilar_wasm.bat`. Se requiere el SDK oficial de Emscripten, Git y Python. En esta computadora el compilador llegó a `wasm-ld.exe`, pero Windows lo bloqueó por Control de aplicaciones; por eso no se afirma que la integración C++/WebAssembly esté terminada. En un entorno aprobado, defina `EMSDK_DIR` con la ruta del SDK y ejecute `cpp\compilar_wasm.bat` desde la carpeta del proyecto. No cambie la configuración de seguridad del equipo para compilar; consulte con el profesor o el administrador del dispositivo.
 
 ## Pruebas registradas
 

@@ -26,7 +26,7 @@ La prueba del préstamo y devolución que ya se registra en `docs/plan-pruebas.m
 
 - **Repositorio público:** crea el repositorio en tu cuenta de GitHub y sube el proyecto sin datos personales ni contraseñas. Este paquete no está publicado en GitHub.
 - **Alojamiento público:** usa un servicio que ejecute PHP y MariaDB/MySQL. Netlify por sí solo no ejecuta esta API PHP. El sitio todavía no tiene URL pública.
-- **WebAssembly:** el fuente y el script están en `cpp/`. La generación del `.wasm` quedó pendiente porque Control de aplicaciones de Windows bloqueó `wasm-ld.exe`; no cambies las protecciones del equipo para forzar la ejecución.
+- **WebAssembly:** el fuente y el script están en `cpp/`. La generación del `.wasm` quedó pendiente porque Control de aplicaciones de Windows bloqueó `wasm-ld.exe`; no cambies las protecciones del equipo para forzar la ejecución. Pide aprobación al administrador o usa una computadora escolar donde Emscripten esté permitido. En ese entorno, configura `EMSDK_DIR` con la carpeta del SDK y ejecuta `cpp\compilar_wasm.bat`. Deben aparecer `assets/wasm/inventario.js` y `assets/wasm/inventario.wasm`; al actualizar la página, el estado debe indicar que el módulo está activo.
 - **Video:** graba el recorrido de 90–120 segundos descrito en `docs/guion-video.md` después de ejecutar las pruebas reales.
 - **Portada:** escribe tu nombre en el espacio reservado de la presentación.
 

@@ -1,6 +1,10 @@
 @echo off
 setlocal
-if not defined EMSDK_DIR set "EMSDK_DIR=%~dp0..\..\..\work\emsdk"
+if not defined EMSDK_DIR if defined EMSDK set "EMSDK_DIR=%EMSDK%"
+if not defined EMSDK_DIR (
+  echo Defina EMSDK_DIR con la carpeta donde instalo Emscripten.
+  exit /b 1
+)
 if not exist "%EMSDK_DIR%\emsdk_env.bat" (
   echo No se encontro Emscripten. Instale emsdk y configure EMSDK_DIR.
   exit /b 1
