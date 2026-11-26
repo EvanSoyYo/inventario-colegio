@@ -13,11 +13,13 @@ Fecha de registro: 25 de noviembre de 2026. Las pruebas locales se ejecutaron co
 | P07 | Crear préstamo válido, repetir préstamo del mismo equipo y devolverlo | Alta 201; segundo préstamo 409; devolución actualiza disponibilidad | Aprobado históricamente antes de activar autenticación | Préstamo ficticio ID 1, luego devuelto |
 | P08 | Confirmar estado inicial de autenticación | Cuenta inicial requerida, sin usuario autenticado | Aprobado | `configuracion_requerida=true` |
 | P09 | Creación temporal de cuenta, consulta privada, cierre de sesión y validación CSRF | Acceso permitido; solicitud sin sesión rechazada; cuenta temporal retirada | Aprobado en XAMPP; la creación inicial del estudiante aún debe hacerse | Resumen y equipos 200; sesión cerrada; usuario temporal borrado |
-| P10 | CRUD de equipo con cuenta iniciada | Alta, búsqueda, edición, estado y desactivación correctos | Parcial: se comprobó que la sesión y CSRF habilitan el endpoint; CRUD completo pendiente | POST con cuerpo inválido y CSRF correcto respondió 400 |
-| P11 | Préstamo y devolución con sesión | Reglas de fechas, disponibilidad e historial correctos | Aprobado históricamente antes de activar autenticación; falta repetir con sesión | Préstamo ficticio existente aparece en el historial como devuelto |
+| P10 | CRUD de equipo con cuenta iniciada | Alta, búsqueda, edición, estado y desactivación correctos | El estudiante confirma que completó las pruebas locales | Guardar las capturas reales del flujo |
+| P11 | Préstamo y devolución con sesión | Reglas de fechas, disponibilidad e historial correctos | El estudiante confirma que completó las pruebas locales | Guardar las capturas reales del flujo |
 | P12 | Exportar CSV con sesión | Archivo CSV válido, UTF-8 y estado calculado | Aprobado en XAMPP | HTTP 200, `text/csv; charset=utf-8` |
 | P13 | C++ a WebAssembly | Compilación y funciones exportadas | Bloqueado: Control de aplicaciones de Windows impidió ejecutar `wasm-ld.exe` | Mensaje del sistema durante compilación |
-| P14 | Publicación pública y video | URL y grabación reales | Pendiente: requiere hosting y grabación del estudiante | — |
+| P14 | Publicación pública | El sitio carga y la aplicación funciona en Internet | El estudiante confirma que el sitio funciona | https://chus-proyecto-2026.free.je/ |
+| P15 | C++ a WebAssembly en el sitio público | Módulo compilado y carga confirmada | Pendiente: compilación bloqueada por Control de aplicaciones de Windows | Requiere entorno aprobado |
+| P16 | Video | Recorrido de 90–120 segundos | Pendiente por decisión del estudiante; fuera de la ayuda solicitada | Guion en `docs/guion-video.md` |
 
 ## Registro funcional anterior
 
@@ -25,4 +27,4 @@ En el ensayo previo a agregar sesiones, se registró un préstamo ficticio del e
 
 ## Capturas requeridas para la entrega
 
-Añadir capturas reales de: creación/inicio de sesión, panel, equipo registrado, préstamo activo, rechazo de préstamo duplicado, devolución registrada, historial y exportación CSV. No se han inventado capturas ni se marca como completada una prueba pendiente.
+Añadir capturas reales de: creación/inicio de sesión, panel, equipo registrado, préstamo activo, rechazo de préstamo duplicado, devolución registrada, historial, exportación CSV y sitio publicado. Las pruebas funcionales fueron confirmadas por el estudiante; las capturas deben guardarse como evidencia de la entrega. No se han inventado capturas.

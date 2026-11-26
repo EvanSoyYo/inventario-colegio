@@ -10,9 +10,11 @@ Aplicación web para administrar el inventario, los préstamos y las devolucione
 - **Acceso:** el primer uso solicita crear una cuenta administrativa. No se incluye una contraseña predeterminada.
 - **C++/WebAssembly:** fuente y script de compilación incluidos; el módulo `.wasm` no pudo generarse porque el Control de aplicaciones de Windows bloqueó `wasm-ld.exe`. La interfaz informa esta condición y conserva el resto de las funciones.
 - **Documentación:** manual de usuario, manual técnico, identidad visual, plan de pruebas, guion de video, lista de cierre y presentación de ocho diapositivas incluidos en `docs/`.
-- **Publicación en Internet:** pendiente. Para el despliegue se preparó `database/schema_hosting.sql` y `docs/publicacion-hosting.md`. El servidor debe ejecutar PHP y MySQL/MariaDB; GitHub Pages y Netlify estático no ejecutan esta API PHP.
-- **Repositorio GitHub, capturas finales y video:** pendientes de publicar/grabar o de completar con la cuenta del estudiante.
-- **Lista de cierre:** consulte `docs/cierre-entrega.md` para crear su cuenta, repetir las pruebas y reunir los entregables externos.
+- **Publicación en Internet:** el estudiante confirma que el sitio funciona en [chus-proyecto-2026.free.je](https://chus-proyecto-2026.free.je/). Para reproducir el despliegue se incluyen `database/schema_hosting.sql` y `docs/publicacion-hosting.md`.
+- **Repositorio GitHub:** publicado en `https://github.com/EvanSoyYo/inventario-colegio`.
+- **C++/WebAssembly:** fuente y script incluidos; falta generar y desplegar el módulo porque Windows bloqueó `wasm-ld.exe`.
+- **Evidencia final:** guardar capturas de las pruebas funcionales. La grabación del video queda a cargo del estudiante.
+- **Lista de cierre:** consulte `docs/cierre-entrega.md` para completar WebAssembly y reunir la evidencia final.
 
 ## Requisitos locales
 
