@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inventario tecnológico del colegio</title>
+  <meta name="description" content="Administración de equipos tecnológicos, préstamos y devoluciones del colegio técnico profesional.">
+  <link rel="stylesheet" href="assets/css/estilos.css">
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <a class="enlace-saltar" href="#contenido-principal">Saltar al contenido</a>
+
+  <header class="encabezado-sitio" id="encabezado-sitio">
+    <div class="contenedor encabezado-interno">
+      <h1 class="titulo-sitio" id="titulo-sitio">Inventario tecnológico</h1>
+      <nav class="navegacion" id="nav-principal" aria-label="Navegación principal">
+        <ul class="navegacion-lista">
+          <li><a id="enlace-panel" href="#seccion-panel">Panel</a></li>
+          <li><a id="enlace-equipos" href="#seccion-equipos">Equipos</a></li>
+          <li><a id="enlace-prestamos" href="#seccion-prestamos">Nuevo préstamo</a></li>
+          <li><a id="enlace-historial" href="#seccion-historial">Historial</a></li>
+          <li><span id="usuario-actual" hidden></span></li>
+          <li><button type="button" class="boton boton-secundario" id="boton-cerrar-sesion" hidden>Cerrar sesión</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="acceso contenedor" id="seccion-acceso" aria-labelledby="titulo-acceso">
+    <div class="tarjeta-acceso">
+      <h2 id="titulo-acceso">Acceso administrativo</h2>
+      <p class="ayuda" id="ayuda-acceso">Cargando estado de acceso…</p>
+      <p class="mensaje-acceso" id="mensaje-acceso" role="alert" hidden></p>
+
+      <form id="formulario-configuracion" hidden>
+        <h3>Crear cuenta administrativa</h3>
+        <p class="ayuda">Esta cuenta inicial controla el inventario. La contraseña se guarda protegida.</p>
+        <div class="campo">
+          <label for="configuracion-usuario">Nombre de usuario</label>
+          <input id="configuracion-usuario" name="nombre_usuario" minlength="3" maxlength="50" required autocomplete="username">
+        </div>
+        <div class="campo">
+          <label for="configuracion-contrasena">Contraseña (mínimo 10 caracteres)</label>
+          <input type="password" id="configuracion-contrasena" name="contrasena" minlength="10" maxlength="200" required autocomplete="new-password">
+        </div>
+        <div class="campo">
+          <label for="configuracion-confirmacion">Confirmar contraseña</label>
+          <input type="password" id="configuracion-confirmacion" name="confirmacion" minlength="10" maxlength="200" required autocomplete="new-password">
+        </div>
+        <button class="boton boton-primario" type="submit">Crear cuenta e ingresar</button>
+      </form>
+
+      <form id="formulario-login" hidden>
+        <h3>Iniciar sesión</h3>
+        <div class="campo">
+          <label for="login-usuario">Nombre de usuario</label>
+          <input id="login-usuario" name="nombre_usuario" required autocomplete="username">
+        </div>
+        <div class="campo">
+          <label for="login-contrasena">Contraseña</label>
+          <input type="password" id="login-contrasena" name="contrasena" required autocomplete="current-password">
+        </div>
+        <button class="boton boton-primario" type="submit">Ingresar</button>
+      </form>
+    </div>
+  </section>
+
+  <main class="contenedor oculto" id="contenido-principal">
+
+    <!-- Mensajes globales (éxito, error, carga). Los llena JavaScript. -->
+    <div class="mensajes-globales" id="mensajes-globales" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- 1. PANEL -->
+    <section class="seccion" id="seccion-panel" aria-labelledby="titulo-panel">
+      <div class="seccion-cabecera">
+        <h2 id="titulo-panel">Panel principal</h2>
+        <button type="button" class="boton boton-secundario" id="boton-actualizar-panel">Actualizar datos</button>
+        <a class="boton boton-secundario" id="boton-exportar-csv" href="api/exportar.php">Exportar CSV</a>
+      </div>
+
+      <ul class="tarjetas" id="tarjetas-panel">
+        <li class="tarjeta" id="tarjeta-total">
+          <span class="tarjeta-etiqueta">Equipos registrados</span>
+          <output class="tarjeta-valor" id="contador-total" aria-live="polite">0</output>
+        </li>
+        <li class="tarjeta tarjeta-disponible" id="tarjeta-disponibles">
+          <span class="tarjeta-etiqueta">Disponibles</span>
+          <output class="tarjeta-valor" id="contador-disponibles" aria-live="polite">0</output>
+        </li>
+        <li class="tarjeta tarjeta-prestado" id="tarjeta-prestados">
+          <span class="tarjeta-etiqueta">Prestados</span>
+          <output class="tarjeta-valor" id="contador-prestados" aria-live="polite">0</output>
+        </li>
+        <li class="tarjeta tarjeta-mantenimiento" id="tarjeta-mantenimiento">
+          <span class="tarjeta-etiqueta">En mantenimiento</span>
+          <output class="tarjeta-valor" id="contador-mantenimiento" aria-live="polite">0</output>
+        </li>
+        <li class="tarjeta tarjeta-vencido" id="tarjeta-vencidos">
+          <span class="tarjeta-etiqueta">Préstamos vencidos</span>
+          <output class="tarjeta-valor" id="contador-vencidos" aria-live="polite">0</output>
+        </li>
+      </ul>
+      <p class="estado-wasm" id="estado-wasm" role="status">Cargando módulo de validación C++…</p>
+    </section>
+
+    <!-- 2 y 3. EQUIPOS -->
+    <section class="seccion" id="seccion-equipos" aria-labelledby="titulo-equipos">
+      <h2 id="titulo-equipos">Equipos</h2>
+
+      <!-- Formulario de registro / edición -->
+      <form class="formulario" id="formulario-equipo" aria-labelledby="titulo-formulario-equipo">
+        <h3 id="titulo-formulario-equipo">Registrar equipo</h3>
+        <p class="ayuda" id="ayuda-formulario-equipo">Los campos marcados con * son obligatorios.</p>
+
+        <input type="hidden" id="equipo-id" name="id">
+
+        <div class="rejilla-campos">
+          <div class="campo">
+            <label for="equipo-codigo">Código *</label>
+            <input type="text" id="equipo-codigo" name="codigo" maxlength="40" required autocomplete="off" aria-describedby="error-equipo-codigo">
+            <p class="mensaje-error" id="error-equipo-codigo" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="equipo-nombre">Nombre *</label>
+            <input type="text" id="equipo-nombre" name="nombre" maxlength="120" required autocomplete="off" aria-describedby="error-equipo-nombre">
+            <p class="mensaje-error" id="error-equipo-nombre" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="equipo-categoria">Categoría *</label>
+            <input type="text" id="equipo-categoria" name="categoria" maxlength="80" required list="lista-categorias" autocomplete="off" aria-describedby="error-equipo-categoria">
+            <datalist id="lista-categorias">
+              <option value="Computadora de escritorio"></option>
+              <option value="Computadora portátil"></option>
+              <option value="Proyector"></option>
+              <option value="Impresora"></option>
+              <option value="Equipo de redes"></option>
+              <option value="Dispositivo móvil"></option>
+              <option value="Componente electrónico"></option>
+              <option value="Herramienta o accesorio"></option>
+            </datalist>
+            <p class="mensaje-error" id="error-equipo-categoria" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="equipo-marca">Marca</label>
+            <input type="text" id="equipo-marca" name="marca" maxlength="80" autocomplete="off" aria-describedby="error-equipo-marca">
+            <p class="mensaje-error" id="error-equipo-marca" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="equipo-modelo">Modelo</label>
+            <input type="text" id="equipo-modelo" name="modelo" maxlength="80" autocomplete="off" aria-describedby="error-equipo-modelo">
+            <p class="mensaje-error" id="error-equipo-modelo" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="equipo-estado">Estado inicial</label>
+            <select id="equipo-estado" name="estado" aria-describedby="ayuda-equipo-estado error-equipo-estado">
+              <option value="disponible" selected>Disponible</option>
+              <option value="mantenimiento">En mantenimiento</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+            <p class="ayuda" id="ayuda-equipo-estado">Solo se usa al registrar. Para cambiarlo después, use las acciones de la tabla.</p>
+            <p class="mensaje-error" id="error-equipo-estado" role="alert" hidden></p>
+          </div>
+
+          <div class="campo campo-ancho">
+            <label for="equipo-observaciones">Observaciones</label>
+            <textarea id="equipo-observaciones" name="observaciones" rows="3" maxlength="500" aria-describedby="error-equipo-observaciones"></textarea>
+            <p class="mensaje-error" id="error-equipo-observaciones" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <div class="acciones-formulario">
+          <button type="submit" class="boton boton-primario" id="boton-guardar-equipo">Registrar equipo</button>
+          <button type="button" class="boton boton-secundario" id="boton-cancelar-edicion" hidden>Cancelar edición</button>
+          <button type="reset" class="boton boton-secundario" id="boton-limpiar-equipo">Limpiar</button>
+        </div>
+      </form>
+
+      <!-- Búsqueda -->
+      <form class="formulario formulario-busqueda" id="formulario-busqueda-equipos" role="search" aria-label="Buscar equipos">
+        <div class="rejilla-campos">
+          <div class="campo">
+            <label for="busqueda-q">Buscar por código, nombre o categoría</label>
+            <input type="search" id="busqueda-q" name="q" autocomplete="off">
+          </div>
+
+          <div class="campo">
+            <label for="busqueda-estado">Estado</label>
+            <select id="busqueda-estado" name="estado">
+              <option value="">Todos</option>
+              <option value="disponible">Disponible</option>
+              <option value="prestado">Prestado</option>
+              <option value="mantenimiento">En mantenimiento</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="acciones-formulario">
+          <button type="submit" class="boton boton-primario" id="boton-buscar-equipos">Buscar</button>
+          <button type="button" class="boton boton-secundario" id="boton-limpiar-busqueda">Limpiar búsqueda</button>
+        </div>
+      </form>
+
+      <!-- Tabla de equipos -->
+      <p class="resumen-tabla" id="resumen-equipos" aria-live="polite"></p>
+      <div class="tabla-contenedor" id="contenedor-tabla-equipos" tabindex="0" role="region" aria-labelledby="titulo-tabla-equipos">
+        <table class="tabla" id="tabla-equipos">
+          <caption id="titulo-tabla-equipos">Lista de equipos</caption>
+          <thead>
+            <tr>
+              <th scope="col">Código</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Modelo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla-equipos">
+            <tr id="fila-equipos-vacia">
+              <td colspan="7">Cargando equipos…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. PRÉSTAMO -->
+    <section class="seccion" id="seccion-prestamos" aria-labelledby="titulo-prestamos">
+      <h2 id="titulo-prestamos">Registrar préstamo</h2>
+
+      <form class="formulario" id="formulario-prestamo" aria-labelledby="titulo-prestamos">
+        <p class="ayuda" id="ayuda-formulario-prestamo">Solo se listan equipos disponibles. Los campos marcados con * son obligatorios.</p>
+
+        <div class="rejilla-campos">
+          <div class="campo campo-ancho">
+            <label for="prestamo-equipo">Equipo *</label>
+            <select id="prestamo-equipo" name="equipo_id" required aria-describedby="error-prestamo-equipo">
+              <option value="">Seleccione un equipo…</option>
+            </select>
+            <p class="mensaje-error" id="error-prestamo-equipo" role="alert" hidden></p>
+          </div>
+
+          <div class="campo campo-ancho">
+            <label for="prestamo-responsable">Responsable *</label>
+            <input type="text" id="prestamo-responsable" name="responsable" maxlength="150" required autocomplete="off" aria-describedby="error-prestamo-responsable">
+            <p class="mensaje-error" id="error-prestamo-responsable" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="prestamo-fecha-prestamo">Fecha del préstamo *</label>
+            <input type="date" id="prestamo-fecha-prestamo" name="fecha_prestamo" required aria-describedby="error-prestamo-fecha-prestamo">
+            <p class="mensaje-error" id="error-prestamo-fecha-prestamo" role="alert" hidden></p>
+          </div>
+
+          <div class="campo">
+            <label for="prestamo-fecha-limite">Fecha límite de devolución *</label>
+            <input type="date" id="prestamo-fecha-limite" name="fecha_limite" required aria-describedby="error-prestamo-fecha-limite">
+            <p class="mensaje-error" id="error-prestamo-fecha-limite" role="alert" hidden></p>
+          </div>
+
+          <div class="campo campo-ancho">
+            <label for="prestamo-observaciones">Observaciones</label>
+            <textarea id="prestamo-observaciones" name="observaciones" rows="3" maxlength="500" aria-describedby="error-prestamo-observaciones"></textarea>
+            <p class="mensaje-error" id="error-prestamo-observaciones" role="alert" hidden></p>
+          </div>
+        </div>
+
+        <div class="acciones-formulario">
+          <button type="submit" class="boton boton-primario" id="boton-registrar-prestamo">Registrar préstamo</button>
+          <button type="reset" class="boton boton-secundario" id="boton-limpiar-prestamo">Limpiar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 5. HISTORIAL -->
+    <section class="seccion" id="seccion-historial" aria-labelledby="titulo-historial">
+      <div class="seccion-cabecera">
+        <h2 id="titulo-historial">Historial de préstamos</h2>
+      </div>
+
+      <form class="formulario formulario-busqueda" id="formulario-filtro-historial" aria-label="Filtrar historial de préstamos">
+        <div class="rejilla-campos">
+          <div class="campo">
+            <label for="filtro-historial-estado">Estado del préstamo</label>
+            <select id="filtro-historial-estado" name="estado">
+              <option value="">Todos</option>
+              <option value="activo">Activo</option>
+              <option value="vencido">Vencido</option>
+              <option value="devuelto">Devuelto</option>
+            </select>
+          </div>
+        </div>
+        <div class="acciones-formulario">
+          <button type="submit" class="boton boton-primario" id="boton-filtrar-historial">Filtrar</button>
+          <button type="button" class="boton boton-secundario" id="boton-limpiar-filtro-historial">Quitar filtro</button>
+        </div>
+      </form>
+
+      <p class="resumen-tabla" id="resumen-prestamos" aria-live="polite"></p>
+      <div class="tabla-contenedor" id="contenedor-tabla-prestamos" tabindex="0" role="region" aria-labelledby="titulo-tabla-prestamos">
+        <table class="tabla" id="tabla-prestamos">
+          <caption id="titulo-tabla-prestamos">Historial de préstamos</caption>
+          <thead>
+            <tr>
+              <th scope="col">Equipo</th>
+              <th scope="col">Responsable</th>
+              <th scope="col">Fecha del préstamo</th>
+              <th scope="col">Fecha límite</th>
+              <th scope="col">Fecha de devolución</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla-prestamos">
+            <tr id="fila-prestamos-vacia">
+              <td colspan="7">Cargando préstamos…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Diálogo para registrar una devolución -->
+  <dialog class="dialogo" id="dialogo-devolucion" aria-labelledby="titulo-dialogo-devolucion">
+    <form id="formulario-devolucion" method="dialog">
+      <h2 id="titulo-dialogo-devolucion">Registrar devolución</h2>
+      <p id="devolucion-resumen"></p>
+
+      <input type="hidden" id="devolucion-prestamo-id" name="prestamo_id">
+
+      <div class="campo">
+        <label for="devolucion-fecha">Fecha de devolución *</label>
+        <input type="date" id="devolucion-fecha" name="fecha_devolucion" required aria-describedby="error-devolucion-fecha">
+        <p class="mensaje-error" id="error-devolucion-fecha" role="alert" hidden></p>
+      </div>
+
+      <div class="acciones-formulario">
+        <button type="submit" class="boton boton-primario" id="boton-confirmar-devolucion">Confirmar devolución</button>
+        <button type="button" class="boton boton-secundario" id="boton-cancelar-devolucion">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="pie-sitio" id="pie-sitio">
+    <div class="contenedor">
+      <p>Proyecto de Programación II · Inventario de recursos tecnológicos</p>
+    </div>
+  </footer>
+</body>
+</html>
