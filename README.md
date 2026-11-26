@@ -9,7 +9,7 @@ Aplicación web para administrar el inventario, los préstamos y las devolucione
 - **API:** equipos, préstamos, devoluciones, resumen, exportación CSV e inicio de sesión.
 - **Acceso:** el primer uso solicita crear una cuenta administrativa. No se incluye una contraseña predeterminada.
 - **C++/WebAssembly:** fuente y script de compilación incluidos; el módulo `.wasm` no pudo generarse porque el Control de aplicaciones de Windows bloqueó `wasm-ld.exe`. La interfaz informa esta condición y conserva el resto de las funciones.
-- **Documentación:** manual de usuario, manual técnico, plan de pruebas, guion de video, lista de cierre y presentación de ocho diapositivas incluidos en `docs/`.
+- **Documentación:** manual de usuario, manual técnico, identidad visual, plan de pruebas, guion de video, lista de cierre y presentación de ocho diapositivas incluidos en `docs/`.
 - **Publicación en Internet:** pendiente. Esta aplicación requiere alojamiento que ejecute PHP y una base compatible con MySQL/MariaDB; Netlify estático no ejecuta esta API PHP.
 - **Repositorio GitHub, capturas finales y video:** pendientes de publicar/grabar o de completar con la cuenta del estudiante.
 - **Lista de cierre:** consulte `docs/cierre-entrega.md` para crear su cuenta, repetir las pruebas y reunir los entregables externos.
