@@ -2,14 +2,9 @@
 declare(strict_types=1);
 
 /*
- * Conexión local a la base de datos del proyecto.
- * Uso desde un endpoint: require_once __DIR__ . '/db.php'; $pdo = conectar();
+ * Conexión PDO para XAMPP y producción.
+ * La configuración privada api/db.local.php no se sube al repositorio.
  */
-const DB_HOST = 'localhost';
-const DB_PORT = '3306';
-const DB_NAME = 'inventario_colegio';
-const DB_USER = 'root';
-const DB_PASS = ''; // Cambiar si root tiene contraseña en esta instalación local.
 
 function conectar(): PDO
 {
@@ -18,8 +13,29 @@ function conectar(): PDO
         return $pdo;
     }
 
-    $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT
-        . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+    $config = [
+        'host' => getenv('INVENTARIO_DB_HOST') ?: 'localhost',
+        'port' => getenv('INVENTARIO_DB_PORT') ?: '3306',
+        'name' => getenv('INVENTARIO_DB_NAME') ?: 'inventario_colegio',
+        'user' => getenv('INVENTARIO_DB_USER') ?: 'root',
+        'pass' => getenv('INVENTARIO_DB_PASS') ?: '',
+    ];
+
+    $archivoLocal = __DIR__ . '/db.local.php';
+    if (is_file($archivoLocal)) {
+        $configPrivada = require $archivoLocal;
+        if (!is_array($configPrivada)) {
+            error_log('api/db.local.php debe devolver un arreglo de configuración.');
+            http_response_code(500);
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ok' => false, 'mensaje' => 'La configuración de la base de datos no es válida.'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        $config = array_replace($config, $configPrivada);
+    }
+
+    $dsn = 'mysql:host=' . $config['host'] . ';port=' . $config['port']
+        . ';dbname=' . $config['name'] . ';charset=utf8mb4';
     $opciones = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -27,7 +43,7 @@ function conectar(): PDO
     ];
 
     try {
-        $pdo = new PDO($dsn, DB_USER, DB_PASS, $opciones);
+        $pdo = new PDO($dsn, $config['user'], $config['pass'], $opciones);
     } catch (PDOException $e) {
         error_log('Error de conexión a la base de datos: ' . $e->getMessage());
         http_response_code(500);

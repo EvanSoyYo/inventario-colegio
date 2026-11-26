@@ -1,0 +1,15 @@
+<?php
+declare(strict_types=1);
+
+/*
+ * Copie este archivo como db.local.php en el servidor y reemplace los valores
+ * con los datos privados que muestra el panel de su alojamiento.
+ * No suba db.local.php al repositorio ni comparta sus credenciales.
+ */
+return [
+    'host' => 'REEMPLAZAR_HOST_MYSQL',
+    'port' => '3306',
+    'name' => 'REEMPLAZAR_NOMBRE_BASE',
+    'user' => 'REEMPLAZAR_USUARIO',
+    'pass' => 'REEMPLAZAR_CONTRASENA',
+];
